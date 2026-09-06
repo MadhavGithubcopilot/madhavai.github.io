@@ -1,18 +1,582 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Madhav Suresh</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Madhav Suresh - AI, robotics, programming, technology and innovation.">
+
+    <title>Madhav Suresh | AI & Innovation</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #07111f;
+            color: #f5f7fb;
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 17, 31, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #203149;
+        }
+
+        .nav-container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo span {
+            color: #62a8ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #dce6f5;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #62a8ff;
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 1150px;
+            margin: auto;
+            min-height: 650px;
+            padding: 90px 25px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+        .small-title {
+            color: #62a8ff;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 78px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg, #62a8ff, #9c7cff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 650px;
+            color: #aebdd0;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #344761;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .button.primary {
+            background: #3478d4;
+            border-color: #3478d4;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* PHOTO */
+        .photo-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .photo-box {
+            width: 310px;
+            height: 370px;
+            border-radius: 25px;
+            padding: 7px;
+            background: linear-gradient(145deg, #62a8ff, #9c7cff);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            display: block;
+            background: #111c2c;
+        }
+
+        /* GENERAL SECTION */
+        section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 85px 25px;
+        }
+
+        .section-title {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            color: #9eacc0;
+            margin-bottom: 40px;
+        }
+
+        /* ABOUT */
+        .about-box {
+            background: #0c192b;
+            border: 1px solid #203149;
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        .about-box p {
+            color: #b8c5d6;
+            font-size: 17px;
+            margin-bottom: 15px;
+        }
+
+        /* CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: #0c192b;
+            border: 1px solid #203149;
+            border-radius: 17px;
+            padding: 28px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #4f8edb;
+        }
+
+        .card-number {
+            color: #62a8ff;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #9eacc0;
+        }
+
+        /* LEARNING */
+        .learning-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .learning-item {
+            background: #0c192b;
+            border: 1px solid #203149;
+            border-radius: 15px;
+            padding: 23px;
+        }
+
+        .learning-item h3 {
+            margin-bottom: 7px;
+        }
+
+        .learning-item p {
+            color: #9eacc0;
+        }
+
+        /* CONTACT */
+        .contact-box {
+            background: linear-gradient(135deg, #101f35, #0b1728);
+            border: 1px solid #263b56;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .contact-box p {
+            color: #aebdd0;
+            margin: 15px auto 25px;
+            max-width: 650px;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid #203149;
+            text-align: center;
+            padding: 30px 20px;
+            color: #738399;
+        }
+
+        /* MOBILE */
+        @media (max-width: 800px) {
+
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 65px;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .learning-list {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-container {
+                order: -1;
+            }
+
+            .photo-box {
+                width: 250px;
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Hello, I'm Madhav.</h1>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
 
-    <p>
-        Welcome to my website about AI, technology, robotics and innovation.
-    </p>
+            <div class="logo">
+                Madhav<span>.</span>
+            </div>
 
-    <img src="madhav-photo.jpg" width="300">
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#learning">AI & Learning</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <!-- HOME -->
+    <main id="home">
+
+        <div class="hero">
+
+            <div>
+
+                <div class="small-title">
+                    AI • TECHNOLOGY • INNOVATION
+                </div>
+
+                <h1>
+                    Hello, I'm
+                    <br>
+                    <span class="gradient">Madhav.</span>
+                </h1>
+
+                <p class="hero-description">
+                    I'm Madhav Suresh, a student interested in
+                    Artificial Intelligence, robotics, programming
+                    and new technology. I enjoy learning how things
+                    work and turning interesting ideas into projects.
+                </p>
+
+                <div class="buttons">
+                    <a href="#projects" class="button primary">
+                        View My Projects
+                    </a>
+
+                    <a href="#about" class="button">
+                        About Me
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- PHOTO -->
+            <div class="photo-container">
+
+                <div class="photo-box">
+
+                    <img
+                        src="./madhav-photo.jpg"
+                        alt="Madhav Suresh"
+                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;height:100%;display:flex;align-items:center;justify-content:center;color:#9eacc0;text-align:center;padding:20px;&quot;>Photo not found.<br>Keep madhav-photo.jpg beside index.html.</div>';"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ABOUT -->
+        <section id="about">
+
+            <h2 class="section-title">
+                About Me
+            </h2>
+
+            <p class="section-subtitle">
+                A little about my interests and what I enjoy learning.
+            </p>
+
+            <div class="about-box">
+
+                <p>
+                    My name is <strong>Madhav Suresh</strong>.
+                    I am interested in Artificial Intelligence,
+                    robotics, programming and technology.
+                </p>
+
+                <p>
+                    I like exploring new ideas, understanding how
+                    technology works and creating projects that can
+                    solve real-world problems.
+                </p>
+
+                <p>
+                    I am continuously learning and experimenting with
+                    different technologies as I work towards building
+                    better and more useful ideas.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROJECTS -->
+        <section id="projects">
+
+            <h2 class="section-title">
+                Projects
+            </h2>
+
+            <p class="section-subtitle">
+                Some of the technology and innovation projects I am exploring.
+            </p>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="card-number">PROJECT 01</div>
+
+                    <h3>Smart AI Safety Band</h3>
+
+                    <p>
+                        A wearable technology concept combining
+                        safety features, parental controls and
+                        age-appropriate AI interaction.
+                    </p>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-number">PROJECT 02</div>
+
+                    <h3>Voice AI Assistant</h3>
+
+                    <p>
+                        Exploring a voice-based AI system that can
+                        understand spoken interaction and provide
+                        suitable responses.
+                    </p>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-number">PROJECT 03</div>
+
+                    <h3>Robotics & Automation</h3>
+
+                    <p>
+                        Learning about sensors, microcontrollers,
+                        programming and how software can control
+                        physical systems.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- AI & LEARNING -->
+        <section id="learning">
+
+            <h2 class="section-title">
+                AI & Learning
+            </h2>
+
+            <p class="section-subtitle">
+                Technologies and subjects I am exploring.
+            </p>
+
+            <div class="learning-list">
+
+                <div class="learning-item">
+                    <h3>Artificial Intelligence</h3>
+                    <p>
+                        Learning how AI systems process information,
+                        recognise patterns and generate useful results.
+                    </p>
+                </div>
+
+                <div class="learning-item">
+                    <h3>Programming</h3>
+                    <p>
+                        Exploring languages such as Python, Java,
+                        C and C++ while improving problem-solving skills.
+                    </p>
+                </div>
+
+                <div class="learning-item">
+                    <h3>Robotics</h3>
+                    <p>
+                        Understanding sensors, controllers,
+                        electronics and automation.
+                    </p>
+                </div>
+
+                <div class="learning-item">
+                    <h3>Innovation</h3>
+                    <p>
+                        Turning ideas into prototypes and learning
+                        how technology can be used to solve problems.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+        <section id="contact">
+
+            <h2 class="section-title">
+                Contact
+            </h2>
+
+            <div class="contact-box">
+
+                <h2>
+                    Let's connect.
+                </h2>
+
+                <p>
+                    If you would like to know more about my projects,
+                    technology interests or learning journey, you can
+                    get in touch through a safe contact method.
+                </p>
+
+                <!-- Add a safe public contact method here later -->
+                <a href="#home" class="button primary">
+                    Back to Home
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            © 2026 Madhav Suresh • AI & Innovation
+        </p>
+    </footer>
 
 </body>
 </html>
