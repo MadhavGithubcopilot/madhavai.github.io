@@ -1,137 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Smart AI Band</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+async function connectBand() {
+    if (!navigator.bluetooth) {
+        alert("Bluetooth is not supported in this browser.");
+        return;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #172033;
-        }
+    try {
+        const device = await navigator.bluetooth.requestDevice({
+            acceptAllDevices: true,
+            optionalServices: []
+        });
 
-        header {
-            background: #172033;
-            color: white;
-            padding: 22px;
-            text-align: center;
-        }
+        alert("Found band: " + device.name);
 
-        .container {
-            max-width: 700px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+        const server = await device.gatt.connect();
 
-        .card {
-            background: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 18px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
+        alert("Smart AI Band connected!");
 
-        .status {
-            font-size: 20px;
-            font-weight: bold;
-        }
+        console.log("Connected to:", device.name);
+        console.log("Bluetooth server:", server);
 
-        .online {
-            color: green;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: #172033;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        .feature {
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-        }
-    </style>
-</head>
-
-<body>
-
-<header>
-    <h1>Smart AI Band</h1>
-    <p>Smart. Safe. Connected.</p>
-</header>
-
-<div class="container">
-
-    <div class="card">
-        <h2>Band Status</h2>
-
-        <p class="status online">
-            ● Band Connected
-        </p>
-
-        <p>Battery: 87%</p>
-        <p>Connection: Bluetooth</p>
-
-        <button onclick="connectBand()">
-            CONNECT BAND
-        </button>
-    </div>
-
-    <div class="card">
-        <h2>AI Assistant</h2>
-
-        <p>
-            Your AI companion is ready to help.
-        </p>
-
-        <button onclick="startAI()">
-            START AI
-        </button>
-    </div>
-
-    <div class="card">
-        <h2>Safety Features</h2>
-
-        <div class="feature">🛡️ Parent Controls</div>
-        <div class="feature">📍 Safety Monitoring</div>
-        <div class="feature">🔔 Emergency Alerts</div>
-        <div class="feature">🔒 Secure Communication</div>
-    </div>
-
-</div>
-
-<footer>
-    Smart AI Band Prototype
-</footer>
-
-<script>
-
+    } catch (error) {
+        console.log(error);
+        alert("Bluetooth connection cancelled or failed.");
+    }
+}
 function connectBand() {
     alert("Bluetooth connection will be added in the next stage.");
 }
-
-function startAI() {
-    alert("AI Assistant will be added in the next stage.");
-}
-
-</script>
-
-</body>
-</html>
