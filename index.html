@@ -1,43 +1,639 @@
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KH7TXP54');</script>
-<!-- End Google Tag Manager -->
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MADHAV ACADEMY</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}.auth{min-height:100vh;display:grid;place-items:center;padding:20px}.box,.card{background:white;border:1px solid #dfe5ee;border-radius:18px;padding:22px;box-shadow:0 8px 25px #17203312}.box{width:min(440px,100%)}input,select{width:100%;padding:11px;margin:6px 0 12px;border:1px solid #cfd7e3;border-radius:9px}.primary,.secondary,.danger,.nav button{border:0;border-radius:9px;padding:10px 14px;font-weight:700}.primary{background:#2457e6;color:#fff}.secondary{background:#eaf0ff;color:#2457e6}.danger{background:#ffecec;color:#c33}.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}.side{background:#101a2e;color:white;padding:16px;display:flex;flex-direction:column}.nav{display:grid;gap:6px;margin-top:25px}.nav button{background:transparent;color:#bdc8db;text-align:left}.nav button.active,.nav button:hover{background:#1e2c48;color:white}.bottom{margin-top:auto}.main{min-width:0}.top{height:68px;background:white;border-bottom:1px solid #e0e5ed;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0}.search{max-width:420px}.content{padding:24px;max-width:1400px;margin:auto}.hero{background:linear-gradient(135deg,#2457e6,#5a83f2);color:white;padding:28px;border-radius:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0}.stat{padding:18px;background:white;border:1px solid #e0e5ed;border-radius:14px}.stat b{font-size:26px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.tabs button{border:1px solid #d7deea;background:white;border-radius:9px;padding:9px}.tabs button.active{background:#2457e6;color:white}.modal{position:fixed;inset:0;background:#081020aa;display:grid;place-items:center;padding:18px;z-index:10}.modal>div{background:white;color:#172033;border-radius:16px;padding:22px;width:min(850px,100%);max-height:90vh;overflow:auto}.watermark{position:absolute;inset:0;display:grid;place-items:center;font-size:55px;font-weight:900;color:#2457e615;transform:rotate(-30deg);pointer-events:none}.paper{position:relative;background:white;color:#111;padding:40px;min-height:900px}.paper>*{position:relative}.q{margin:18px 0}.option{display:block;border:1px solid #ddd;padding:9px;border-radius:8px;margin:6px 0}.muted{color:#687386}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}@media(max-width:800px){.app{grid-template-columns:1fr}.side{position:fixed;z-index:20;left:-250px;top:0;bottom:0;width:240px;transition:.2s}.side.open{left:0}.menu{display:block}.stats{grid-template-columns:1fr 1fr}}@media(min-width:801px){.menu{display:none}}
-</style></head><body>
-<div id="auth" class="auth"><div class="box"><h1>MADHAV <span style="color:#2457e6">ACADEMY</span></h1><p class="muted">Learn • Practice • Master</p><section id="login"><h2>Login</h2><form id="loginForm"><label>Name</label><input id="ln" required><label>Password</label><input id="lp" type="password" required><p id="le" style="color:#c33"></p><button class="primary" style="width:100%">Login</button></form><p>New student? <button id="toCreate" class="secondary" type="button">Create Account</button></p></section><section id="create" class="hidden"><h2>Create Account</h2><form id="createForm"><label>Name</label><input id="cn" required><label>Grade</label><select id="cg" required><option value="">Choose grade</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select><label>School</label><input id="cs" required><label>Password</label><input id="cp" type="password" minlength="4" required><label>Confirm password</label><input id="cc" type="password" required><p id="ce" style="color:#c33"></p><button class="primary" style="width:100%">Create Account</button></form><p>Already have an account? <button id="toLogin" class="secondary" type="button">Login</button></p></section></div></div>
-<div id="app" class="app hidden"><aside id="side" class="side"><h2>MADHAV <span style="color:#78a1ff">ACADEMY</span></h2><div class="nav"><button data-page="home">🏠 Dashboard</button><button data-page="subjects">📚 Subjects</button><button data-page="worksheets">📝 Worksheets</button><button data-page="quizzes">🧠 Quizzes</button><button data-page="progress">📊 Progress</button><button data-page="profile">👤 Profile</button><button data-page="settings">⚙️ Settings</button></div><div class="bottom"><p id="sideUser"></p><button id="logout" class="danger" style="width:100%">Logout</button></div></aside><main class="main"><header class="top"><div class="row"><button id="menu" class="secondary">☰</button><input id="search" class="search" placeholder="Search chapters..."></div><button id="theme" class="secondary">🌙</button></header><div id="content" class="content"></div></main></div><div id="modal"></div>
-<script>
-const AK='MA_ACCOUNTS_7',SK='MA_SESSION_7';let page='home',subject='All',chapter=null,quiz=null;const S=['English','Mathematics','Science','Social Science'];const C={6:['Who Did Patrick’s Homework?','Knowing Our Numbers','Food: Where Does It Come From?','The Earth in the Solar System'],7:['Three Questions','Integers','Nutrition in Plants','On Equality'],8:['A Tale of Valour','Magic Brush of Dreams','Squares and Square Roots','Cubes and Cube Roots','Working with Fractions','Invisible Living World Beyond the Naked Eye','Electric Current and its Effects','Nature of Matter','How Nature Works in Harmony','Reshaping India’s Political Map','Natural Resources','The Colonial Era in India','Universal Adult Franchise and India’s Electoral System','Parliamentary System','Types of Phrases and Clauses'],9:['The Fun They Had','Number Systems','Matter in Our Surroundings','What is Democracy? Why Democracy?'],10:['A Letter to God','Real Numbers','Chemical Reactions and Equations','Power Sharing']};
-const subjectOf=t=>t.includes('Square')||t.includes('Cube')||t.includes('Fraction')||t==='Integers'||t==='Knowing Our Numbers'||t==='Number Systems'||t==='Real Numbers'?'Mathematics':t.includes('Matter')||t.includes('Living World')||t.includes('Electric')||t.includes('Nutrition')||t.includes('Chemical')||t.includes('Life Processes')||t.includes('Plants')?'Science':t.includes('India')||t.includes('Resources')||t.includes('Colonial')||t.includes('Universal')||t.includes('Parliamentary')||t.includes('Democracy')||t.includes('Equality')||t.includes('Earth')||t.includes('Power Sharing')?'Social Science':'English';
-const detail=t=>({summary:`${t} is studied through its key ideas, terms, examples and applications. Read the main concept, revise the important points and practise the questions.`,concepts:['Main idea','Key terms','Examples','Applications'],terms:['definition','concept','example'],questions:[`What is the main idea of ${t}?`,`Write two important points from ${t}.`,`Give one example related to ${t}.`,`Write a short revision note on ${t}.`]});
-const get=()=>{try{return JSON.parse(localStorage.getItem(AK)||'[]')}catch{return[]}},save=a=>localStorage.setItem(AK,JSON.stringify(a)),user=()=>get().find(x=>x.id===sessionStorage.getItem(SK));
-function showAuth(){document.getElementById('auth').classList.remove('hidden');document.getElementById('app').classList.add('hidden');}function openApp(){document.getElementById('auth').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()};function go(p){page=p;chapter=null;quiz=null;document.getElementById('side').classList.remove('open');render()};
-function render(){let u=user();if(!u){showAuth();return}document.getElementById('sideUser').textContent=`${u.name} • Grade ${u.grade}`;document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));let html='';if(page==='home')html=home(u);if(page==='subjects')html=subjects(u);if(page==='worksheets')html=worksheets(u);if(page==='quizzes')html=quizzes(u);if(page==='progress')html=progress(u);if(page==='profile')html=profile(u);if(page==='settings')html=settings(u);document.getElementById('content').innerHTML=html}
-function home(u){return `<div class="hero"><h1>Welcome, ${u.name.split(' ')[0]}!</h1><p>Learn • Practice • Master</p></div><div class="stats"><div class="stat"><b>${C[u.grade].length}</b><br><span class="muted">Chapters</span></div><div class="stat"><b>${u.done.length}</b><br><span class="muted">Completed</span></div><div class="stat"><b>${Object.keys(u.scores).length}</b><br><span class="muted">Quizzes</span></div><div class="stat"><b>${u.done.length?Math.round(u.done.length/C[u.grade].length*100):0}%</b><br><span class="muted">Progress</span></div></div><h2>Subjects</h2><div class="grid">${S.map(x=>`<div class="card"><h3>${x}</h3><p class="muted">Study ${x} chapters.</p><button class="primary" data-sub="${x}">Open Subject</button></div>`).join('')}</div>`}
-function subjects(u){let list=C[u.grade].filter(t=>subject==='All'||subjectOf(t)===subject).filter(t=>t.toLowerCase().includes(document.getElementById('search').value.toLowerCase()));return `<h2>Subjects</h2><div class="tabs"><button data-sub="All" class="${subject==='All'?'active':''}">All</button>${S.map(x=>`<button data-sub="${x}" class="${subject===x?'active':''}">${x}</button>`).join('')}</div><div class="grid">${list.map(t=>`<div class="card"><small class="muted">${subjectOf(t)}</small><h3>${t}</h3><p>${detail(t).summary}</p><div class="row"><button class="primary" data-study="${t}">Study</button><button class="secondary" data-ws="${t}">Worksheets</button></div></div>`).join('')}</div>`}
-function worksheets(u){return `<h2>Worksheets</h2><p class="muted">Chapter-specific A4 worksheets with MADHAV ACADEMY watermark.</p><div class="grid">${C[u.grade].map(t=>`<div class="card"><small>${subjectOf(t)}</small><h3>${t}</h3><button class="primary" data-ws="${t}">Open Worksheets</button></div>`).join('')}</div>`}
-function quizzes(u){return `<h2>Quiz Centre</h2><div class="grid">${C[u.grade].map(t=>`<div class="card"><h3>${t}</h3><p class="muted">${u.scores[t]===undefined?'Not attempted':'Last score: '+u.scores[t]+'%'}</p><button class="primary" data-quiz="${t}">Start Quiz</button></div>`).join('')}</div>`}
-function progress(u){return `<h2>Progress</h2><div class="card"><h3>Completed chapters: ${u.done.length}/${C[u.grade].length}</h3>${C[u.grade].map(t=>`<p>${t} — ${u.done.includes(t)?'100%':'0%'}</p>`).join('')}</div>`}
-function profile(u){return `<h2>Editable Profile</h2><form id="profileForm" class="card" style="max-width:650px"><label>Name</label><input id="pn" value="${esc(u.name)}" required><label>Grade</label><select id="pg">${[6,7,8,9,10].map(g=>`<option ${g==u.grade?'selected':''}>${g}</option>`).join('')}</select><label>School</label><input id="ps" value="${esc(u.school)}" required><label>New password</label><input id="pp" type="password" placeholder="Leave blank to keep current"><button class="primary">Save Changes</button></form>`}
-function settings(u){return `<h2>Settings</h2><div class="card"><button id="theme2" class="secondary">Toggle Dark Mode</button><button id="reset" class="danger">Reset Progress</button><button id="logout2" class="danger">Logout</button></div>`}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function openStudy(t){let d=detail(t);chapter=t;document.getElementById('content').innerHTML=`<button class="secondary" data-page="subjects">← Back</button><div class="card" style="margin-top:15px"><small>${subjectOf(t)}</small><h1>${t}</h1><h3>Summary</h3><p>${d.summary}</p><h3>Key Concepts</h3><ul>${d.concepts.map(x=>`<li>${x}</li>`).join('')}</ul><h3>Important Terms</h3><p>${d.terms.join(' • ')}</p><h3>Important Questions</h3><ol>${d.questions.map(x=>`<li>${x}</li>`).join('')}</ol><div class="row"><button class="primary" data-ws="${t}">Worksheets</button><button class="secondary" data-quiz="${t}">Quiz</button><button class="secondary" data-done="${t}">Mark Complete</button></div></div>`}
-function openWS(t){let qs=detail(t).questions;document.getElementById('modal').innerHTML=`<div class="modal"><div><div class="row" style="justify-content:space-between"><h2>${t} — Worksheets</h2><button data-close>✕</button></div><div class="tabs"><button data-paper="1">WS 1</button><button data-paper="2">WS 2</button><button data-paper="3">WS 3</button><button data-paper="4">Revision</button></div><div id="paper">${paper(t,qs,1)}</div></div></div>`}
-function paper(t,qs,type){let title=['','Concept Check','Practice Paper','Application Challenge','Revision Worksheet'][type];let arr=type===1?qs:type===2?[...qs,'Explain one important term.','Write three revision points.']:type===3?['Explain the main concept using a real-life example.','Compare two important ideas.','Write a reasoned answer to an important question.','Create a short exam revision note.']:qs.concat(['Define the most important term.','Write two things you must remember.']);return `<div class="paper"><div class="watermark">MADHAV ACADEMY</div><h1>MADHAV ACADEMY</h1><h2>${title}</h2><p><b>Student:</b> ${esc(user().name)} &nbsp; <b>Grade:</b> ${user().grade} &nbsp; <b>School:</b> ${esc(user().school)}</p><hr>${arr.map((q,i)=>`<div class="q"><b>Q${i+1}. ${q}</b><div style="height:75px"></div></div>`).join('')}<button class="primary" data-print>Print / Save PDF</button></div>`}
-function startQuiz(t){quiz={title:t,questions:[{q:'What should you do after studying a chapter?',o:['Revise and practise','Ignore it','Skip it','None'],a:0},{q:'Which section helps you revise?',o:['Important questions','Nothing','Login','Settings'],a:0},{q:'What is the purpose of practice?',o:['Improve understanding','Avoid learning','Delete progress','None'],a:0},{q:'What should an answer contain?',o:['Relevant ideas','Random words','Nothing','Only emojis'],a:0},{q:'What is a useful final step?',o:['Revision','Ignoring the topic','Closing the book forever','None'],a:0}]};page='quiz';renderQuiz()}
-function renderQuiz(){let q=quiz;document.getElementById('content').innerHTML=`<div class="card"><h2>${q.title} Quiz</h2><form id="quizForm">${q.questions.map((x,i)=>`<div class="q"><b>${i+1}. ${x.q}</b>${x.o.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}</div>`).join('')}<button class="primary">Submit Quiz</button></form></div>`}
-function toggleDark(){document.body.classList.toggle('dark');if(document.body.classList.contains('dark'))document.body.style.background='#0d1320';else document.body.style.background='#f4f7fb'}
 
-document.addEventListener('click',e=>{let b=e.target.closest('button');if(!b)return;if(b.dataset.page){go(b.dataset.page);return}if(b.id==='toCreate'){login.classList.add('hidden');create.classList.remove('hidden');return}if(b.id==='toLogin'){create.classList.add('hidden');login.classList.remove('hidden');return}if(b.id==='logout'||b.id==='logout2'){sessionStorage.removeItem(SK);showAuth();return}if(b.id==='menu'){side.classList.toggle('open');return}if(b.id==='theme'||b.id==='theme2'){toggleDark();return}if(b.dataset.sub){subject=b.dataset.sub;page='subjects';render();return}if(b.dataset.study){openStudy(b.dataset.study);return}if(b.dataset.ws){openWS(b.dataset.ws);return}if(b.dataset.quiz){startQuiz(b.dataset.quiz);return}if(b.dataset.done){let u=user();if(!u.done.includes(b.dataset.done))u.done.push(b.dataset.done);save(get());render();return}if(b.dataset.close){modal.innerHTML='';return}if(b.dataset.paper){let t=modal.querySelector('h2').textContent.split(' — ')[0];let qs=detail(t).questions;paper.innerHTML=paper(t,qs,Number(b.dataset.paper));return}if(b.dataset.print){let p=document.querySelector('.paper').outerHTML,w=window.open('','_blank');if(w){w.document.write('<html><body>'+p+'<style>@media print{button{display:none}}body{font-family:Arial}.paper{position:relative;padding:40px}.watermark{position:absolute;inset:0;display:grid;place-items:center;color:#2457e615;font-size:55px;transform:rotate(-30deg)}</style></body></html>');w.document.close();w.print()}return}if(b.id==='reset'){let u=user();u.done=[];u.scores={};save(get());render();return}});
-document.addEventListener('submit',e=>{if(e.target.id==='loginForm'){e.preventDefault();let u=get().find(x=>x.name.toLowerCase()===ln.value.trim().toLowerCase()&&x.password===lp.value);if(!u){le.textContent='Incorrect name or password.';return}sessionStorage.setItem(SK,u.id);le.textContent='';openApp()}if(e.target.id==='createForm'){e.preventDefault();ce.textContent='';if(cp.value!==cc.value){ce.textContent='Passwords do not match.';return}if(get().some(x=>x.name.toLowerCase()===cn.value.trim().toLowerCase())){ce.textContent='Account already exists.';return}let u={id:Date.now().toString(),name:cn.value.trim(),grade:Number(cg.value),school:cs.value.trim(),password:cp.value,done:[],scores:{}};let a=get();a.push(u);save(a);sessionStorage.setItem(SK,u.id);openApp()}if(e.target.id==='profileForm'){e.preventDefault();let u=user();u.name=pn.value.trim();u.grade=Number(pg.value);u.school=ps.value.trim();if(pp.value)u.password=pp.value;save(get());render() }if(e.target.id==='quizForm'){e.preventDefault();let score=0;quiz.questions.forEach((x,i)=>{let r=document.querySelector(`input[name=q${i}]:checked`);if(r&&Number(r.value)===x.a)score++});let u=user();u.scores[quiz.title]=Math.round(score/quiz.questions.length*100);save(get());alert('Quiz score: '+u.scores[quiz.title]+'%');quiz=null;page='quizzes';render()}});
-document.getElementById('search').addEventListener('input',()=>{if(page==='subjects')render()});
-if(sessionStorage.getItem(SK)&&user())openApp();else showAuth();
-</script></body></html>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH7TXP54"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101713">
+<meta name="description" content="Madhav Suresh — young founder, technology strategist and aspiring CEO. Explore leadership, ventures, strategy and innovation.">
+<title>Madhav Suresh — Founder | ROBOCORE EINSTEIN</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root{
+ --bg:#f5f5f0;--paper:#fff;--ink:#172019;--muted:#778078;
+ --line:#e3e6df;--green:#b8f36b;--deep:#15271c;--deep2:#203a2b;
+ --soft:#eaf1e6;--orange:#ef895c;--radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:95px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif}
+button,input,textarea,select{font:inherit}
+button,a{ -webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+::selection{background:var(--green);color:var(--ink)}
+.wrap{width:min(1240px,92%);margin:auto}
+.mono{font-family:'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+.muted{color:var(--muted)}
+.topline{background:var(--deep);color:#d4dfd5;padding:10px 0;font-size:11px}
+.topline .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:8px}
+header{position:sticky;top:0;z-index:50;background:rgba(245,245,240,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.7px}
+.brand-mark{display:grid;place-items:center;background:var(--deep);color:var(--green);width:39px;height:39px;border-radius:12px;font-size:18px}
+.brand small{display:block;font:10px 'DM Mono',monospace;letter-spacing:1.5px;color:var(--muted);margin-top:2px}
+.navlinks{display:flex;align-items:center;gap:25px;font-size:12px;color:#5e675f}
+.navlinks a:hover{color:#172019}
+.nav-cta,.btn{border:0;border-radius:10px;padding:13px 17px;background:var(--deep);color:white;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.2s}
+.nav-cta:hover,.btn:hover{background:#294b35;transform:translateY(-2px)}
+.btn.light{background:var(--green);color:var(--deep)}
+.btn.light:hover{background:#d0ff9a}
+.btn.outline{background:transparent;border:1px solid #d4ddd3;color:white}
+.btn.outline:hover{background:#ffffff12}
+.menu{display:none;background:transparent;border:1px solid var(--line);border-radius:9px;padding:10px}
+.hero{background:var(--deep);color:white;overflow:hidden;position:relative}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to right,black,transparent)}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:60px;align-items:center;padding:82px 0 72px}
+.eyebrow{color:var(--green);display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.hero h1{font:800 clamp(46px,7.5vw,88px)/.99 Manrope,sans-serif;letter-spacing:-5px;margin:0;max-width:760px}
+.hero h1 span{color:var(--green)}
+.hero-copy{color:#b9c8bc;font-size:15px;line-height:1.9;max-width:580px;margin:25px 0 29px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-foot{display:flex;gap:25px;flex-wrap:wrap;margin-top:43px;padding-top:20px;border-top:1px solid #ffffff20;color:#aebbb0;font-size:11px}
+.hero-foot span{display:flex;align-items:center;gap:7px}
+.profile-card{background:#ffffff08;border:1px solid #ffffff20;border-radius:24px;padding:25px;position:relative;max-width:400px;width:100%;justify-self:end}
+.profile-top{display:flex;justify-content:space-between;align-items:center}
+.avatar{width:72px;height:72px;border-radius:20px;background:var(--green);color:var(--deep);display:grid;place-items:center;font:800 28px Manrope,sans-serif}
+.status{border:1px solid #ffffff24;border-radius:30px;padding:7px 10px;color:#c9d5cb;font-size:10px}
+.profile-card h2{font:700 26px Manrope;margin:23px 0 5px}
+.profile-card>p{color:#aab9ad;font-size:12px;line-height:1.7;margin:0}
+.card-rule{height:1px;background:#ffffff20;margin:22px 0}
+.profile-facts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.profile-facts strong{display:block;font:600 13px Manrope;margin-top:6px}
+.profile-facts .mono{color:#9cafa0}
+.section{padding:90px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:35px}
+.section-head h2{font:800 clamp(30px,4vw,45px)/1.08 Manrope;letter-spacing:-2px;margin:10px 0 0}
+.section-head p{color:var(--muted);font-size:13px;line-height:1.8;max-width:390px;margin:0}
+.kicker{color:#52704e}
+.overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;min-height:140px}
+.metric .metric-label{font-size:11px;color:var(--muted)}
+.metric strong{display:block;font:800 28px Manrope;letter-spacing:-1px;margin:19px 0 6px}
+.metric small{font-size:11px;color:var(--muted);line-height:1.6}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.panel-head h3{font:700 18px Manrope;margin:0}
+.badge{font:10px 'DM Mono',monospace;padding:7px 9px;border-radius:7px;background:var(--soft);color:#426443}
+.activity{display:flex;align-items:flex-start;gap:13px;padding:15px 0;border-bottom:1px solid var(--line)}
+.activity:last-child{border:0}
+.activity-icon{flex-shrink:0;width:35px;height:35px;border-radius:10px;background:var(--soft);display:grid;place-items:center;font-size:15px}
+.activity strong{font-size:12px;display:block;margin:2px 0 5px}
+.activity p{font-size:11px;line-height:1.7;color:var(--muted);margin:0}
+.activity time{margin-left:auto;white-space:nowrap;font:9px 'DM Mono',monospace;color:#919b91}
+.goal{padding:16px 0;border-bottom:1px solid var(--line)}
+.goal:last-child{border:0}
+.goal-line{display:flex;justify-content:space-between;gap:12px;font-size:12px;font-weight:600}
+.goal-line span:last-child{font:10px 'DM Mono',monospace;color:var(--muted)}
+.track{height:5px;background:#edf0e9;border-radius:10px;overflow:hidden;margin-top:12px}
+.track div{height:100%;background:#79ad59;border-radius:10px}
+.goal-note{font-size:10px;color:var(--muted);margin-top:8px}
+.dark-section{background:#e9eee6}
+.skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.skill{padding:25px;background:white;border:1px solid #dfe5dc;border-radius:17px;transition:.2s}
+.skill:hover{transform:translateY(-4px);box-shadow:0 12px 30px #1833220b}
+.skill-number{font:11px 'DM Mono',monospace;color:#78916f}
+.skill h3{font:700 18px Manrope;margin:21px 0 10px}
+.skill p{font-size:12px;line-height:1.85;color:var(--muted);margin:0}
+.skill .skill-foot{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);font-size:10px;color:#567450}
+.venture-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.venture{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.venture-banner{height:135px;background:var(--deep);color:var(--green);padding:23px;display:flex;justify-content:space-between;align-items:flex-start;position:relative;overflow:hidden}
+.venture-banner:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #ffffff20;border-radius:50%;right:-40px;top:30px;box-shadow:0 0 0 25px #ffffff05,0 0 0 50px #ffffff05}
+.venture-symbol{font:800 40px Manrope;position:relative;z-index:1}
+.venture-id{font:10px 'DM Mono',monospace;color:#a9b9aa;position:relative;z-index:1}
+.venture-content{padding:22px;display:flex;flex-direction:column;flex:1}
+.venture-content h3{font:700 19px Manrope;margin:0 0 9px}
+.venture-content p{font-size:12px;color:var(--muted);line-height:1.8;margin:0 0 20px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}
+.tag{background:#f0f2ec;border-radius:6px;padding:6px 8px;font-size:9px;color:#586458}
+.venture-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:15px;margin-top:auto}
+.venture-bottom span{font:9px 'DM Mono',monospace;color:var(--muted)}
+.text-btn{background:none;border:0;color:#345b36;font-weight:700;font-size:11px;padding:8px 0}
+.strategy-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:22px;align-items:stretch}
+.strategy-intro{background:var(--deep);border-radius:20px;padding:30px;color:white;display:flex;flex-direction:column;justify-content:space-between;min-height:400px}
+.strategy-intro h3{font:800 35px/1.12 Manrope;letter-spacing:-1.5px;margin:17px 0}
+.strategy-intro p{color:#b4c5b7;font-size:12px;line-height:1.9}
+.strategy-intro .big-number{font:800 68px Manrope;color:var(--green);letter-spacing:-4px;margin-top:25px}
+.strategy-intro .big-caption{font:10px 'DM Mono',monospace;color:#b4c5b7}
+.tool{background:white;border:1px solid var(--line);border-radius:20px;padding:28px}
+.tool h3{font:700 19px Manrope;margin:0 0 7px}
+.tool>p{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 22px}
+.field{display:block;font-size:11px;font-weight:700;margin:16px 0 8px}
+.field small{color:var(--muted);font-weight:400}
+.input{width:100%;border:1px solid #dfe4dc;border-radius:9px;padding:12px;background:#fafbf8;outline:none;color:var(--ink)}
+.input:focus{border-color:#82a66c;box-shadow:0 0 0 3px #b8f36b40}
+.tool-result{margin-top:19px;border-radius:12px;background:var(--soft);padding:18px;display:none}
+.tool-result.visible{display:block}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.result-grid strong{display:block;font:800 24px Manrope;margin-top:8px}
+.result-grid span{font-size:10px;color:var(--muted)}
+.result-note{font-size:11px;line-height:1.7;margin-top:15px}
+.journal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.journal{background:white;border:1px solid var(--line);border-radius:16px;padding:24px}
+.journal .mono{color:#70896b}
+.journal h3{font:700 18px/1.35 Manrope;margin:20px 0 12px}
+.journal p{font-size:12px;color:var(--muted);line-height:1.85}
+.journal .reflection{border-top:1px solid var(--line);padding-top:14px;margin-top:18px;font-size:11px;color:#456746}
+.journal-compose{margin-top:20px;background:white;border:1px solid var(--line);border-radius:18px;padding:25px}
+.journal-compose h3{font:700 18px Manrope;margin:0 0 7px}
+.journal-compose p{font-size:12px;color:var(--muted)}
+textarea.input{resize:vertical;min-height:95px}
+.journal-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:17px}
+.saved-entry{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fafbf8}
+.saved-entry strong{font-size:12px}
+.saved-entry p{font-size:11px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+.saved-entry button{font-size:10px;color:#a24d3a;border:0;background:none;padding:5px 0}
+.principles{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.principle{padding:20px;border-top:2px solid #9bc76d;background:#fff;border-radius:0 0 12px 12px}
+.principle strong{font:700 14px Manrope}
+.principle p{font-size:11px;line-height:1.8;color:var(--muted)}
+.cta{background:var(--green);border-radius:24px;padding:45px;display:flex;justify-content:space-between;align-items:center;gap:25px}
+.cta h2{font:800 clamp(28px,4vw,42px)/1.08 Manrope;letter-spacing:-1.7px;margin:12px 0}
+.cta p{font-size:12px;color:#3c5137;line-height:1.8;max-width:500px}
+.cta .btn{background:var(--deep);color:white;white-space:nowrap}
+footer{background:var(--deep);color:white;padding:42px 0 25px;margin-top:85px}
+.footer-top{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap;padding-bottom:30px}
+.footer-top p{color:#aab9ad;font-size:11px;line-height:1.8;max-width:340px}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;font-size:11px;color:#c5d0c7}
+.footer-bottom{border-top:1px solid #ffffff20;padding-top:20px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:#aab9ad;font-size:10px}
+.modal{position:fixed;inset:0;z-index:100;background:#08130dd9;display:none;place-items:center;padding:20px}
+.modal.open{display:grid}
+.modal-box{width:min(620px,100%);max-height:85vh;overflow:auto;background:var(--paper);border-radius:20px;padding:30px}
+.modal-top{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.modal-top button{border:1px solid var(--line);background:transparent;border-radius:8px;padding:9px}
+.modal-box h2{font:800 29px Manrope;letter-spacing:-1px;margin:20px 0 12px}
+.modal-box p{font-size:13px;color:#5e695f;line-height:1.9}
+.modal-box li{font-size:12px;color:#5e695f;line-height:1.9;margin:8px 0}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:200;background:var(--deep);color:white;border:1px solid #ffffff22;padding:13px 18px;border-radius:10px;font-size:12px;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){
+ .hero-inner{grid-template-columns:1fr;gap:40px;padding:65px 0}
+ .profile-card{justify-self:start;max-width:500px}
+ .overview-grid{grid-template-columns:repeat(2,1fr)}
+ .venture-grid,.skill-grid{grid-template-columns:repeat(2,1fr)}
+ .strategy-grid{grid-template-columns:1fr}
+ .principles{grid-template-columns:repeat(2,1fr)}
+ .navlinks{gap:13px}
+ .navlinks a{font-size:11px}
+}
+@media(max-width:650px){
+ .nav{height:66px}
+ .menu{display:block}
+ .nav-cta{display:none}
+ .navlinks{display:none;position:absolute;left:0;right:0;top:65px;background:var(--bg);border-bottom:1px solid var(--line);padding:18px 5%;flex-direction:column;align-items:stretch;gap:0}
+ .navlinks.open{display:flex}
+ .navlinks a{padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}
+ .hero h1{letter-spacing:-2.8px}
+ .hero-inner{padding:54px 0}
+ .section{padding:64px 0}
+ .section-head{align-items:flex-start;flex-direction:column}
+ .split{grid-template-columns:1fr}
+ .skill-grid,.venture-grid,.journal-grid{grid-template-columns:1fr}
+ .principles{grid-template-columns:1fr 1fr}
+ .cta{padding:28px;align-items:flex-start;flex-direction:column}
+ .journal-list{grid-template-columns:1fr}
+ .hero-foot{gap:13px}
+ .profile-card{padding:21px}
+ .strategy-intro{min-height:340px}
+}
+@media(max-width:390px){
+ .overview-grid,.principles{grid-template-columns:1fr}
+ .result-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="topline">
+ <div class="wrap">
+  <span><span class="dot"></span>INDEPENDENT STUDENT-LED INITIATIVE</span>
+  <span>VISION · STRATEGY · TECHNOLOGY</span>
+ </div>
+</div>
+
+<header>
+ <nav class="nav wrap">
+  <a class="brand" href="#home" aria-label="ROBOCORE EINSTEIN home">
+   <span class="brand-mark">R.</span>
+   <span>ROBOCORE EINSTEIN<small>FOUNDER'S OFFICE</small></span>
+  </a>
+  <div class="navlinks" id="navlinks">
+   <a href="#overview">Dashboard</a>
+   <a href="#leadership">Leadership</a>
+   <a href="#ventures">Ventures</a>
+   <a href="#strategy">Strategy Room</a>
+   <a href="#journal">Journal</a>
+  </div>
+  <a href="#ventures" class="nav-cta">Explore my work ↗</a>
+  <button class="menu" id="menuBtn" aria-label="Toggle navigation">☰</button>
+ </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+ <div class="wrap hero-inner">
+  <div>
+   <div class="eyebrow mono"><span class="dot"></span>THE FOUNDER'S DESK · 001</div>
+   <h1>Think like a founder.<br><span>Build for the future.</span></h1>
+   <p class="hero-copy">I'm Madhav Suresh. I explore the intersection of leadership, business strategy and technology — developing ideas, testing possibilities and learning how meaningful products are built.</p>
+   <div class="actions">
+    <a href="#ventures" class="btn light">Explore the ventures ↗</a>
+    <a href="#leadership" class="btn outline">My leadership approach</a>
+   </div>
+   <div class="hero-foot">
+    <span>✳ Student founder</span>
+    <span>✳ Technology & strategy</span>
+    <span>✳ Learning by building</span>
+   </div>
+  </div>
+  <aside class="profile-card">
+   <div class="profile-top">
+    <div class="avatar">MS.</div>
+    <span class="status"><span class="dot"></span>BUILDING IN PUBLIC</span>
+   </div>
+   <h2>Madhav Suresh</h2>
+   <p>Young Founder · Technology Strategist · Aspiring CEO</p>
+   <div class="card-rule"></div>
+   <div class="profile-facts">
+    <div><span class="mono">CURRENT CHAPTER</span><strong>Learn & Lead</strong></div>
+    <div><span class="mono">CORE INTEREST</span><strong>Innovation</strong></div>
+    <div><span class="mono">APPROACH</span><strong>Think → Test</strong></div>
+    <div><span class="mono">PLATFORM</span><strong>ROBOCORE</strong></div>
+   </div>
+  </aside>
+ </div>
+</section>
+
+<section class="section" id="overview">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="mono kicker">01 / EXECUTIVE OVERVIEW</div><h2>The founder's dashboard.</h2></div>
+   <p>A clear view of the work, capabilities and ideas behind this personal technology initiative.</p>
+  </div>
+  <div class="overview-grid">
+   <article class="metric"><div class="metric-label">01 / MINDSET</div><strong>Strategic</strong><small>Start with the problem. Define the outcome.</small></article>
+   <article class="metric"><div class="metric-label">02 / METHOD</div><strong>Practical</strong><small>Learn, prototype, test and improve.</small></article>
+   <article class="metric"><div class="metric-label">03 / FOCUS</div><strong>Innovation</strong><small>Technology ideas with a purpose.</small></article>
+   <article class="metric"><div class="metric-label">04 / PRIORITY</div><strong>Progress</strong><small>Build real skills before making big claims.</small></article>
+  </div>
+  <div class="split">
+   <article class="panel">
+    <div class="panel-head"><h3>Current areas of work</h3><span class="badge">PORTFOLIO</span></div>
+    <div class="activity"><div class="activity-icon">◈</div><div><strong>AI & digital products</strong><p>Exploring conversational interfaces and useful digital experiences.</p></div></div>
+    <div class="activity"><div class="activity-icon">⌘</div><div><strong>Robotics & computer vision</strong><p>Learning how software can interact with cameras and the physical world.</p></div></div>
+    <div class="activity"><div class="activity-icon">↗</div><div><strong>Leadership & business</strong><p>Developing skills in planning, pitching, prioritization and product thinking.</p></div></div>
+   </article>
+   <article class="panel">
+    <div class="panel-head"><h3>Founder development plan</h3><span class="badge">LEARNING ROADMAP</span></div>
+    <div class="goal"><div class="goal-line"><span>Communication & pitching</span><span>ONGOING</span></div><div class="goal-note">Practise concise presentations and evidence-based arguments.</div></div>
+    <div class="goal"><div class="goal-line"><span>Product & customer thinking</span><span>ONGOING</span></div><div class="goal-note">Understand who a product serves and why it matters.</div></div>
+    <div class="goal"><div class="goal-line"><span>Project execution</span><span>ONGOING</span></div><div class="goal-note">Set milestones, document tests and review outcomes.</div></div>
+    <div class="goal"><div class="goal-line"><span>Business fundamentals</span><span>ONGOING</span></div><div class="goal-note">Learn budgets, pricing, costs, value and sustainability.</div></div>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="section dark-section" id="leadership">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="mono kicker">02 / LEADERSHIP DNA</div><h2>Leadership is a practice.</h2></div>
+   <p>Being a founder is not just having an idea. It is learning to make thoughtful decisions and take responsibility for the result.</p>
+  </div>
+  <div class="skill-grid">
+   <article class="skill"><div class="skill-number">CAPABILITY / 01</div><h3>Strategic thinking</h3><p>Break a big vision into priorities. Compare options, understand trade-offs and choose the next useful step.</p><div class="skill-foot">VISION → PRIORITIES → ACTION</div></article>
+   <article class="skill"><div class="skill-number">CAPABILITY / 02</div><h3>Communication</h3><p>Explain complex ideas simply, present with confidence, listen carefully and adapt the message to the audience.</p><div class="skill-foot">CLARITY BUILDS TRUST</div></article>
+   <article class="skill"><div class="skill-number">CAPABILITY / 03</div><h3>Decision-making</h3><p>Separate facts from assumptions, compare alternatives and explain why a decision makes sense.</p><div class="skill-foot">EVIDENCE OVER EGO</div></article>
+   <article class="skill"><div class="skill-number">CAPABILITY / 04</div><h3>Product thinking</h3><p>Start with a real user problem. Test whether a solution is useful before spending time making it bigger.</p><div class="skill-foot">PROBLEM BEFORE PRODUCT</div></article>
+   <article class="skill"><div class="skill-number">CAPABILITY / 05</div><h3>Team leadership</h3><p>Set clear expectations, respect different viewpoints, share credit and take responsibility when things go wrong.</p><div class="skill-foot">ACCOUNTABILITY MATTERS</div></article>
+   <article class="skill"><div class="skill-number">CAPABILITY / 06</div><h3>Business awareness</h3><p>Think about customer needs, costs, value, resources, competition and whether an idea can work in practice.</p><div class="skill-foot">VALUE MUST BE REAL</div></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="ventures">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="mono kicker">03 / VENTURE STUDIO</div><h2>Ideas in development.</h2></div>
+   <p>A portfolio of experiments and concepts. Each project is a chance to practise product design, execution and strategic thinking.</p>
+  </div>
+  <div class="venture-grid">
+   <article class="venture">
+    <div class="venture-banner"><span class="venture-symbol">AI/</span><span class="venture-id">VENTURE 001</span></div>
+    <div class="venture-content">
+     <h3>MADHAV AI HORIZON</h3>
+     <p>An experimental conversational AI interface exploring voice interaction, a visual character and a Python-powered backend.</p>
+     <div class="tags"><span class="tag">Artificial Intelligence</span><span class="tag">Product Design</span><span class="tag">Python</span></div>
+     <div class="venture-bottom"><span>EXPERIMENTAL BUILD</span><button class="text-btn" data-project="horizon">View brief ↗</button></div>
+    </div>
+   </article>
+   <article class="venture">
+    <div class="venture-banner" style="background:#253d31"><span class="venture-symbol">CV.</span><span class="venture-id">VENTURE 002</span></div>
+    <div class="venture-content">
+     <h3>Einstein AirDraw</h3>
+     <p>A computer-vision experiment exploring how camera input can translate hand movement into on-screen drawing.</p>
+     <div class="tags"><span class="tag">Computer Vision</span><span class="tag">Python</span><span class="tag">Human–Computer Interaction</span></div>
+     <div class="venture-bottom"><span>LEARNING PROJECT</span><button class="text-btn" data-project="airdraw">View brief ↗</button></div>
+    </div>
+   </article>
+   <article class="venture">
+    <div class="venture-banner" style="background:#364536"><span class="venture-symbol">N/</span><span class="venture-id">VENTURE 003</span></div>
+    <div class="venture-content">
+     <h3>NOVABAND</h3>
+     <p>A concept for a smart band for children, exploring safety features, parent controls and accessible AI interaction.</p>
+     <div class="tags"><span class="tag">Wearable Technology</span><span class="tag">Safety</span><span class="tag">Concept Design</span></div>
+     <div class="venture-bottom"><span>CONCEPT STAGE</span><button class="text-btn" data-project="novaband">View brief ↗</button></div>
+    </div>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="section dark-section" id="strategy">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="mono kicker">04 / STRATEGY ROOM</div><h2>Make decisions with a framework.</h2></div>
+   <p>Use a simple founder's tool to compare the impact and effort of possible projects. The score is a planning aid, not a guarantee of success.</p>
+  </div>
+  <div class="strategy-grid">
+   <article class="strategy-intro">
+    <div><div class="mono" style="color:var(--green)">THE FOUNDER'S TOOLKIT</div><h3>Not every good idea is the next priority.</h3><p>Strong execution means choosing what deserves attention now. Assess potential value, effort and confidence before committing resources.</p></div>
+    <div><div class="big-number">V × C</div><div class="big-caption">VALUE × CONFIDENCE, CONSIDERED WITH EFFORT</div></div>
+   </article>
+   <article class="tool">
+    <h3>Project priority calculator</h3>
+    <p>Rate a project from 1 to 10. Use your best current estimate and revise it as you learn more.</p>
+    <label class="field" for="projectName">Project name</label>
+    <input class="input" id="projectName" maxlength="80" placeholder="e.g. Build an AI demo">
+    <label class="field" for="value">Potential value <small>— how useful could it be?</small></label>
+    <input class="input" id="value" type="number" min="1" max="10" value="8">
+    <label class="field" for="confidence">Confidence <small>— how much evidence do you have?</small></label>
+    <input class="input" id="confidence" type="number" min="1" max="10" value="5">
+    <label class="field" for="effort">Effort <small>— time and resources required</small></label>
+    <input class="input" id="effort" type="number" min="1" max="10" value="4">
+    <button class="btn" style="margin-top:18px;width:100%" id="calculate">Calculate priority ↗</button>
+    <div class="tool-result" id="result" aria-live="polite">
+     <div class="result-grid">
+      <div><span>PRIORITY SCORE</span><strong id="score">0</strong></div>
+      <div><span>DECISION GUIDE</span><strong id="decision" style="font-size:17px">Review</strong></div>
+     </div>
+     <div class="result-note" id="reason"></div>
+    </div>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="journal">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="mono kicker">05 / FOUNDER'S JOURNAL</div><h2>Reflect. Learn. Improve.</h2></div>
+   <p>Leadership develops through reflection and follow-through. Use this journal to document your thinking and learn from real project experiences.</p>
+  </div>
+  <div class="journal-grid">
+   <article class="journal"><div class="mono">PRINCIPLE / 01</div><h3>Progress beats the perfect plan.</h3><p>A plan is useful, but evidence comes from action. Build a small version, test it and use what you learn to choose the next step.</p><div class="reflection">ASK YOURSELF: What can I test this week?</div></article>
+   <article class="journal"><div class="mono">PRINCIPLE / 02</div><h3>Listen before you lead.</h3><p>Leadership is not about having the loudest voice. Understand the problem, listen to different perspectives and communicate your reasoning.</p><div class="reflection">ASK YOURSELF: Whose perspective am I missing?</div></article>
+   <article class="journal"><div class="mono">PRINCIPLE / 03</div><h3>Be honest about the evidence.</h3><p>A prototype is not a finished product, and an assumption is not a proven result. Document what works, what fails and what remains unknown.</p><div class="reflection">ASK YOURSELF: What have I actually verified?</div></article>
+  </div>
+
+  <div class="journal-compose">
+   <h3>My founder's notes</h3>
+   <p>Record a lesson, a decision, a project milestone or a challenge. Notes are stored locally in this browser on this device.</p>
+   <label class="field" for="noteTitle">Entry title</label>
+   <input class="input" id="noteTitle" maxlength="100" placeholder="What did I learn today?">
+   <label class="field" for="noteText">Your reflection</label>
+   <textarea class="input" id="noteText" maxlength="3000" placeholder="The situation, my decision, what happened, and what I will do next..."></textarea>
+   <button class="btn" id="saveNote" style="margin-top:14px">Save reflection ↗</button>
+   <div class="journal-list" id="journalList"></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="padding-top:0">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="mono kicker">06 / OPERATING PRINCIPLES</div><h2>How I want to work.</h2></div>
+   <p>The standards I want to bring to projects, collaboration and future leadership opportunities.</p>
+  </div>
+  <div class="principles">
+   <article class="principle"><strong>Stay curious.</strong><p>Ask better questions and keep learning beyond the obvious answer.</p></article>
+   <article class="principle"><strong>Own the outcome.</strong><p>Take responsibility for decisions and follow through on commitments.</p></article>
+   <article class="principle"><strong>Respect people.</strong><p>Listen carefully, give credit and disagree constructively.</p></article>
+   <article class="principle"><strong>Prove the value.</strong><p>Measure progress through evidence, usefulness and honest reflection.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="wrap">
+ <div class="cta">
+  <div><div class="mono">THE NEXT CHAPTER</div><h2>Big vision.<br>Grounded execution.</h2><p>I'm building my understanding of leadership and technology one experiment, decision and lesson at a time.</p></div>
+  <a href="#home" class="btn">Back to the top ↑</a>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div class="footer-top">
+   <div><a class="brand" href="#home"><span class="brand-mark">R.</span><span>ROBOCORE EINSTEIN<small>FOUNDER'S OFFICE</small></span></a><p>A personal portfolio by Madhav Suresh, documenting the journey through leadership, strategy, technology and innovation.</p></div>
+   <div class="footer-links"><a href="#leadership">Leadership</a><a href="#ventures">Ventures</a><a href="#strategy">Strategy</a><a href="#journal">Journal</a></div>
+  </div>
+  <div class="footer-bottom"><span>© <span id="year"></span> Madhav Suresh · ROBOCORE EINSTEIN</span><span>Student-led initiative · Learning in progress</span></div>
+ </div>
+</footer>
+
+<div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <div class="modal-box">
+  <div class="modal-top"><span class="mono kicker">VENTURE BRIEF</span><button id="closeModal" aria-label="Close project details">✕</button></div>
+  <h2 id="modalTitle"></h2>
+  <div id="modalBody"></div>
+ </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+$('year').textContent = new Date().getFullYear();
+
+$('menuBtn').addEventListener('click', () => {
+ $('navlinks').classList.toggle('open');
+});
+document.querySelectorAll('#navlinks a').forEach(a => a.addEventListener('click', () => {
+ $('navlinks').classList.remove('open');
+}));
+
+const projects = {
+ horizon:{
+  title:'MADHAV AI HORIZON',
+  stage:'Experimental build',
+  description:'A personal exploration of conversational AI, voice interaction, a 3D-style interface and a Python backend.',
+  goals:['Improve the reliability of the chat experience.','Understand how frontend and backend systems communicate.','Explore voice interaction and responsive interface design.'],
+  next:'Document which features work consistently, identify the biggest technical limitation and test one improvement at a time.'
+ },
+ airdraw:{
+  title:'Einstein AirDraw',
+  stage:'Learning project',
+  description:'A computer-vision experiment exploring camera-based hand tracking and drawing on a digital canvas.',
+  goals:['Learn the fundamentals of image processing and tracking.','Improve the stability of drawing input.','Record test conditions and known limitations.'],
+  next:'Create a repeatable test and document accuracy, responsiveness and failure cases.'
+ },
+ novaband:{
+  title:'NOVABAND',
+  stage:'Concept stage',
+  description:'A proposed child-focused smart band concept combining safety-oriented features, parental controls and accessible AI interaction.',
+  goals:['Identify the needs of children and parents.','Evaluate privacy, consent, reliability and safety requirements.','Compare feasibility, component costs and prototype options.'],
+  next:'Validate the problem with adult guidance, research requirements and create a realistic feature specification before building.'
+ }
+};
+
+function showProject(key){
+ const p = projects[key];
+ if(!p) return;
+ $('modalTitle').textContent = p.title;
+ $('modalBody').replaceChildren();
+ const stage = document.createElement('p');
+ stage.textContent = 'STATUS: ' + p.stage;
+ stage.style.fontWeight = '700';
+ $('modalBody').append(stage);
+ const desc = document.createElement('p');
+ desc.textContent = p.description;
+ $('modalBody').append(desc);
+ const heading = document.createElement('h3');
+ heading.textContent = 'Key objectives';
+ heading.style.fontFamily = 'Manrope';
+ $('modalBody').append(heading);
+ const list = document.createElement('ul');
+ p.goals.forEach(goal => {
+  const li = document.createElement('li');
+  li.textContent = goal;
+  list.append(li);
+ });
+ $('modalBody').append(list);
+ const next = document.createElement('p');
+ next.textContent = 'NEXT STEP: ' + p.next;
+ $('modalBody').append(next);
+ $('projectModal').classList.add('open');
+}
+document.querySelectorAll('[data-project]').forEach(btn => {
+ btn.addEventListener('click', () => showProject(btn.dataset.project));
+});
+$('closeModal').addEventListener('click', () => $('projectModal').classList.remove('open'));
+$('projectModal').addEventListener('click', e => {
+ if(e.target === $('projectModal')) $('projectModal').classList.remove('open');
+});
+document.addEventListener('keydown', e => {
+ if(e.key === 'Escape') $('projectModal').classList.remove('open');
+});
+
+$('calculate').addEventListener('click', () => {
+ const name = $('projectName').value.trim() || 'Your project';
+ const value = Number($('value').value);
+ const confidence = Number($('confidence').value);
+ const effort = Number($('effort').value);
+ const valid = [value,confidence,effort].every(n => Number.isInteger(n) && n >= 1 && n <= 10);
+ if(!valid){
+  showToast('Enter whole-number ratings from 1 to 10.');
+  return;
+ }
+ const score = value * (confidence / 10) / effort * 10;
+ let decision, reason;
+ if(score >= 12){
+  decision = 'Explore next';
+  reason = 'This currently looks promising relative to its effort. Define a small test before committing to a full build.';
+ }else if(score >= 5){
+  decision = 'Test first';
+  reason = 'Gather more evidence, reduce the effort or narrow the scope before making a larger commitment.';
+ }else{
+  decision = 'Reconsider';
+  reason = 'The current assumptions suggest this may not be the best immediate priority. Review the value, confidence and effort ratings.';
+ }
+ $('score').textContent = score.toFixed(1) + '/100';
+ $('decision').textContent = decision;
+ $('reason').textContent = name + ': ' + reason + ' This is a heuristic, not a validated business metric.';
+ $('result').classList.add('visible');
+});
+
+function showToast(message){
+ const t = $('toast');
+ t.textContent = message;
+ t.classList.add('show');
+ clearTimeout(showToast.timer);
+ showToast.timer = setTimeout(() => t.classList.remove('show'),2600);
+}
+
+const NOTE_KEY = 'robocore_founder_notes_v1';
+function loadNotes(){
+ try{
+  const parsed = JSON.parse(localStorage.getItem(NOTE_KEY) || '[]');
+  return Array.isArray(parsed) ? parsed.filter(n =>
+   n && typeof n.title === 'string' && typeof n.text === 'string' && typeof n.date === 'string'
+  ).slice(0,40) : [];
+ }catch{return []}
+}
+function saveNotes(notes){
+ try{
+  localStorage.setItem(NOTE_KEY,JSON.stringify(notes.slice(0,40)));
+  return true;
+ }catch{
+  showToast('Browser storage unavailable. Your note was not saved.');
+  return false;
+ }
+}
+function renderNotes(){
+ const root = $('journalList');
+ root.replaceChildren();
+ const notes = loadNotes();
+ if(!notes.length){
+  const p = document.createElement('p');
+  p.className = 'muted';
+  p.style.fontSize = '12px';
+  p.textContent = 'Your saved reflections will appear here.';
+  root.append(p);
+  return;
+ }
+ notes.forEach((note,index) => {
+  const card = document.createElement('article');
+  card.className = 'saved-entry';
+  const title = document.createElement('strong');
+  title.textContent = note.title;
+  const date = document.createElement('div');
+  date.className = 'mono muted';
+  date.style.marginTop = '7px';
+  date.textContent = note.date;
+  const body = document.createElement('p');
+  body.textContent = note.text;
+  const remove = document.createElement('button');
+  remove.textContent = 'Delete entry';
+  remove.addEventListener('click',() => {
+   const current = loadNotes();
+   current.splice(index,1);
+   if(saveNotes(current)) renderNotes();
+  });
+  card.append(title,date,body,remove);
+  root.append(card);
+ });
+}
+$('saveNote').addEventListener('click',() => {
+ const title = $('noteTitle').value.trim();
+ const text = $('noteText').value.trim();
+ if(!title || !text){
+  showToast('Add a title and a reflection first.');
+  return;
+ }
+ const notes = loadNotes();
+ notes.unshift({title,text,date:new Date().toLocaleDateString()});
+ if(saveNotes(notes)){
+  $('noteTitle').value = '';
+  $('noteText').value = '';
+  renderNotes();
+  showToast('Reflection saved in this browser.');
+ }
+});
+renderNotes();
+</script>
+</body>
+</html>
